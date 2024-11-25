@@ -1,5 +1,7 @@
 // RecipeDetails component
 import { useRecipeStore } from './recipeStore';
+import DeleteRecipeButton from './DeleteRecipeButton'
+import EditRecipeForm from './EditRecipeForm ';
 
 const RecipeDetails = ({ recipeId }) => {
   const recipe = useRecipeStore(state =>
@@ -10,7 +12,8 @@ const RecipeDetails = ({ recipeId }) => {
     <div>
       <h1>{recipe.title}</h1>
       <p>{recipe.description}</p>
-      {/* Render EditRecipeForm and DeleteRecipeButton here */}
+      {DeleteRecipeButton}
+      {EditRecipeForm}
     </div>
   );
 };
