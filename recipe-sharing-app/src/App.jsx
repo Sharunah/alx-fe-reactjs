@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import RecipeList from './components/RecipeList'
 import AddRecipeForm from './components/AddRecipeForm'
+import RecipeDetails from '/components/RecipeDetails'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -17,7 +18,9 @@ function App() {
       <Routes>
             
             <Route path="/list" element={<RecipeList />} />  
-            <Route path="/form" element={<AddRecipeForm />} />  
+            <Route path="/form" element={<AddRecipeForm />} /> 
+            <Route path="/details" element={<RecipeDetails />} /> 
+
              
           </Routes>
        
