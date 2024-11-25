@@ -18,4 +18,4 @@ const RecipeDetails = ({ recipeId }) => {
   );
 };
 
-export  default RecipeDetails
+export default RecipeDetails
