@@ -47,4 +47,4 @@ const EditRecipeForm = ({ recipe }) => {
   );
 };
 
-export default EditRecipeForm;
+export default EditRecipeForm
