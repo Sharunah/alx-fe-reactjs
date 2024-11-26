@@ -6,6 +6,8 @@ import RecipeList from './components/RecipeList'
 import AddRecipeForm from './components/AddRecipeForm'
 import RecipeDetails from '/components/RecipeDetails'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import FavoritesList from './components/Favoriteslist'
+import RecommendationsList from './components/RecommendationsList'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -21,6 +23,9 @@ function App() {
             <Route path="/list" element={<RecipeList />} />  
             <Route path="/form" element={<AddRecipeForm />} /> 
             <Route path="/details" element={<RecipeDetails />} /> 
+            <Route path="/favorites" element={<FavoritesList />} /> 
+            <Route path="/recommendations" element={<RecommendationsList />} /> 
+            
 
              
           </Routes>
