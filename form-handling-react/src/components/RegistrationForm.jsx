@@ -1,5 +1,4 @@
-// src/components/formikForm.js
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
@@ -15,6 +14,11 @@ const validationSchema = Yup.object({
 });
 
 const FormikForm = () => {
+  // State for form fields
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   // Initial form values
   const initialValues = {
     username: "",
@@ -43,6 +47,8 @@ const FormikForm = () => {
                 type="text"
                 id="username"
                 name="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 placeholder="Enter your username"
               />
               <ErrorMessage name="username" component="p" className="error" />
@@ -54,6 +60,8 @@ const FormikForm = () => {
                 type="email"
                 id="email"
                 name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
               />
               <ErrorMessage name="email" component="p" className="error" />
@@ -65,6 +73,8 @@ const FormikForm = () => {
                 type="password"
                 id="password"
                 name="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
               />
               <ErrorMessage name="password" component="p" className="error" />
