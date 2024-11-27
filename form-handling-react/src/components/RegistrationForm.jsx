@@ -1,82 +1,94 @@
-import React from "react";
-import { Formik, Field, Form, ErrorMessage } from "formik";
-import * as Yup from "yup";
+import React, { useState } from "react";
 
-// Yup validation schema
-const validationSchema = Yup.object({
-  username: Yup.string().required("Username is required"),
-  email: Yup.string()
-    .email("Invalid email address")
-    .required("Email is required"),
-  password: Yup.string()
-    .min(6, "Password must be at least 6 characters")
-    .required("Password is required"),
-});
-
-const FormikForm = () => {
-  // Initial form values
-  const initialValues = {
+const RegistrationForm = () => {
+  // State for form fields
+  const [formData, setFormData] = useState({
     username: "",
     email: "",
     password: "",
-  };
+  });
+
+  // State for error messages
+  const [errors, setErrors] = useState({});
 
   // Form submission handler
-  const onSubmit = (values) => {
-    console.log("Form data submitted:", values);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const { username, email, password } = formData;
+
+    // Basic validation
+    const newErrors = {};
+    if (!username) newErrors.username = "Username is required";
+    if (!email) newErrors.email = "Email is required";
+    if (!password) newErrors.password = "Password is required";
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+    } else {
+      setErrors({});
+      console.log("Form submitted successfully:", formData);
+    }
+  };
+
+  // Input change handler
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   return (
     <div className="registration-form-container">
       <h2>Registration Form</h2>
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={onSubmit}
-      >
-        {() => (
-          <Form>
-            <div>
-              <label htmlFor="username">Username:</label>
-              <Field
-                type="text"
-                id="username"
-                name="username"
-                placeholder="Enter your username"
-              />
-              <ErrorMessage name="username" component="p" className="error" />
-            </div>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="username">Username:</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
+            placeholder="Enter your username"
+          />
+          {errors.username && <p className="error">{errors.username}</p>}
+        </div>
 
-            <div>
-              <label htmlFor="email">Email:</label>
-              <Field
-                type="email"
-                id="email"
-                name="email"
-                placeholder="Enter your email"
-              />
-              <ErrorMessage name="email" component="p" className="error" />
-            </div>
+        <div>
+          <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Enter your email"
+          />
+          {errors.email && <p className="error">{errors.email}</p>}
+        </div>
 
-            <div>
-              <label htmlFor="password">Password:</label>
-              <Field
-                type="password"
-                id="password"
-                name="password"
-                placeholder="Enter your password"
-              />
-              <ErrorMessage name="password" component="p" className="error" />
-            </div>
+        <div>
+          <label htmlFor="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            placeholder="Enter your password"
+          />
+          {errors.password && <p className="error">{errors.password}</p>}
+        </div>
 
-            <div>
-              <button type="submit">Register</button>
-            </div>
-          </Form>
-        )}
-      </Formik>
+        <div>
+          <button type="submit">Register</button>
+        </div>
+      </form>
     </div>
   );
 };
 
-export default FormikForm;
+export default RegistrationForm;
