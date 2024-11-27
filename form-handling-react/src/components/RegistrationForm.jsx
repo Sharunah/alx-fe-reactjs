@@ -7,7 +7,7 @@ const RegistrationForm = () => {
   const [password, setPassword] = useState("");
 
   // Error messages state
-  const [errorMessages, setErrorMessages] = useState({
+  const [errorMessages, setErrors] = useState({
     username: "",
     email: "",
     password: "",
@@ -28,9 +28,9 @@ const RegistrationForm = () => {
     if (!password) errors.password = "Password is required.";
 
     if (errors.username || errors.email || errors.password) {
-      setErrorMessages(errors);
+      setErrors(errors);
     } else {
-      setErrorMessages({});
+      setErrors({});
       console.log("Form submitted:", { username, email, password });
     }
   };
