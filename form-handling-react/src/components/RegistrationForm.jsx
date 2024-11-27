@@ -1,43 +1,38 @@
 import React, { useState } from "react";
 
 const RegistrationForm = () => {
-  // State for form fields
-  const [formData, setFormData] = useState({
+  // Form field states
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  // Error messages state
+  const [errorMessages, setErrorMessages] = useState({
     username: "",
     email: "",
     password: "",
   });
 
-  // State for error messages
-  const [errors, setErrors] = useState({});
-
   // Form submission handler
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const { username, email, password } = formData;
+    const errors = {
+      username: "",
+      email: "",
+      password: "",
+    };
 
-    // Basic validation
-    const newErrors = {};
-    if (!username) newErrors.username = "Username is required";
-    if (!email) newErrors.email = "Email is required";
-    if (!password) newErrors.password = "Password is required";
+    if (!username) errors.username = "Username is required.";
+    if (!email) errors.email = "Email is required.";
+    if (!password) errors.password = "Password is required.";
 
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
+    if (errors.username || errors.email || errors.password) {
+      setErrorMessages(errors);
     } else {
-      setErrors({});
-      console.log("Form submitted successfully:", formData);
+      setErrorMessages({});
+      console.log("Form submitted:", { username, email, password });
     }
-  };
-
-  // Input change handler
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
   };
 
   return (
@@ -50,11 +45,13 @@ const RegistrationForm = () => {
             type="text"
             id="username"
             name="username"
-            value={formData.username}
-            onChange={handleChange}
+            onChange={(e) => setUsername(e.target.value)}
             placeholder="Enter your username"
+            value={username}
           />
-          {errors.username && <p className="error">{errors.username}</p>}
+          {errorMessages.username && (
+            <p className="error">{errorMessages.username}</p>
+          )}
         </div>
 
         <div>
@@ -63,11 +60,13 @@ const RegistrationForm = () => {
             type="email"
             id="email"
             name="email"
-            value={formData.email}
-            onChange={handleChange}
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter your email"
+            value={email}
           />
-          {errors.email && <p className="error">{errors.email}</p>}
+          {errorMessages.email && (
+            <p className="error">{errorMessages.email}</p>
+          )}
         </div>
 
         <div>
@@ -76,16 +75,16 @@ const RegistrationForm = () => {
             type="password"
             id="password"
             name="password"
-            value={formData.password}
-            onChange={handleChange}
+            onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter your password"
+            value={password}
           />
-          {errors.password && <p className="error">{errors.password}</p>}
+          {errorMessages.password && (
+            <p className="error">{errorMessages.password}</p>
+          )}
         </div>
 
-        <div>
-          <button type="submit">Register</button>
-        </div>
+        <button type="submit">Register</button>
       </form>
     </div>
   );
