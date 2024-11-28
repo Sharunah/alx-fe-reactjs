@@ -30,7 +30,7 @@ const App = () => {
         <Route path="posts/:postId" element={<Post />} />
 
         {/* Dynamic Blog Route */}
-        <Route path="blog/:id" element={<BlogPost />} />
+        <Route path="/blog/:id" element={<BlogPost />} />
 
         {/* Fallback Route */}
         <Route path="*" element={<h3>Page Not Found</h3>} />
