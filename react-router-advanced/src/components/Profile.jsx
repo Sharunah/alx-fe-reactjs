@@ -1,24 +1,39 @@
 
-import { Outlet, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import ProfileDetails from "./components/ProfileDetails";
+import ProfileSettings from "./components/ProfileSettings";
+import Post from "./components/Post";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const Profile = () => {
+  const isAuthenticated = true; // Simulate authentication
+
   return (
-    <div>
-      <h2>Profile</h2>
-      <nav>
-        <ul>
-          <li>
-            <Link to="details">Profile Details</Link>
-          </li>
-          <li>
-            <Link to="settings">Profile Settings</Link>
-          </li>
-        </ul>
-      </nav>
-      {/* Renders the nested route components */}
-      <Outlet />
-    </div>
+    <Router>
+      <Routes>
+        {/* Protected Route */}
+        <Route
+          path="profile/*"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <Profile />
+            </ProtectedRoute>
+          }
+        >
+          {/* Nested Routes */}
+          <Route path="details" element={<ProfileDetails />} />
+          <Route path="settings" element={<ProfileSettings />} />
+        </Route>
+
+        {/* Dynamic Route */}
+        <Route path="posts/:postId" element={<Post />} />
+
+        {/* Fallback Route */}
+        <Route path="*" element={<h3>Page Not Found</h3>} />
+      </Routes>
+    </Router>
   );
 };
 
-export default Profile;
+export default Profile
+
