@@ -1,24 +1,12 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import './App.css'
-import TodoList from './components/TodoList'
 
-function App() {
-  
+import TodoList from "./components/TodoList";
 
+const App = () => {
   return (
-    <>
-        <BrowserRouter>
-      <Routes>
+    <div>
+      <TodoList />
+    </div>
+  );
+};
 
-      <Route path="/list" element={<TodoList />} /> 
-      </Routes>
-      </BrowserRouter>
-  
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
-
-export default App
+export default App;
