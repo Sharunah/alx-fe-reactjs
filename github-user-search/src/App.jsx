@@ -14,7 +14,7 @@ function App() {
     try {
       const response = await fetch(`https://api.github.com/users/${username}`);
       if (!response.ok) {
-        throw new Error('User not found');
+        throw new Error("Looks like we can't find the user");
       }
       const data = await response.json();
       setUserData(data);
@@ -29,14 +29,23 @@ function App() {
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">GitHub User Search</h1>
       <Search onSearch={handleSearch} />
-      
+
       {loading && <p>Loading...</p>}
       {error && <p className="text-red-500">{error}</p>}
       {userData && (
         <div className="mt-4 p-4 border rounded shadow">
-          <img src={userData.avatar_url} alt={userData.login} className="w-24 h-24 rounded-full mb-2" />
+          <img
+            src={userData.avatar_url}
+            alt={userData.login}
+            className="w-24 h-24 rounded-full mb-2"
+          />
           <h2 className="text-xl font-bold">{userData.name || userData.login}</h2>
-          <a href={userData.html_url} target="_blank" rel="noopener noreferrer" className="text-blue-500">
+          <a
+            href={userData.html_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-500"
+          >
             View Profile
           </a>
         </div>
