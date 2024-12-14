@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import { fetchUserData } from "../services/githubService";
 
 function Search() {
   const [query, setQuery] = useState("");
@@ -7,15 +7,15 @@ function Search() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Async function to handle API call
-  const fetchUsers = async (e) => {
+  // Handle the search form submission
+  const handleSearch = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
 
     try {
-      const response = await axios.get(`https://api.github.com/search/users?q=${query}`);
-      setUsers(response.data.items);
+      const data = await fetchUserData(query);
+      setUsers(data);
     } catch (err) {
       setError("Looks like we can't find the user");
     } finally {
@@ -25,7 +25,7 @@ function Search() {
 
   return (
     <div className="p-6">
-      <form onSubmit={fetchUsers} className="mb-6">
+      <form onSubmit={handleSearch} className="mb-6">
         <input
           type="text"
           placeholder="Search for GitHub users"
